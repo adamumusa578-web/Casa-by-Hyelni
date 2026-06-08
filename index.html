@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Casa by Hyelni – Luxury Stays</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C97E;
+    --gold-dark: #A07830;
+    --black: #0A0A0A;
+    --off-black: #111111;
+    --white: #FAFAF7;
+    --off-white: #F3EFE6;
+    --text-muted: #888880;
+    --border: rgba(201,168,76,0.25);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; padding: 1.4rem 5%; display: flex; align-items: center; justify-content: space-between; transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s; }
+  nav.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(14px); padding: 0.9rem 5%; border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  .nav-logo span { color: var(--white); font-weight: 300; }
+  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+  .nav-links a { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,250,247,0.75); text-decoration: none; transition: color 0.3s; font-weight: 500; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.6rem 1.4rem; cursor: pointer; transition: background 0.3s, color 0.3s; font-weight: 500; }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1px; background: var(--gold); transition: 0.3s; display: block; }
+
+  /* HERO */
+  #hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.6) 60%, rgba(10,10,10,1) 100%), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80') center/cover no-repeat; transform: scale(1.06); animation: heroZoom 14s ease-out forwards; }
+  @keyframes heroZoom { from { transform: scale(1.06); } to { transform: scale(1.0); } }
+  .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 1.5rem; opacity: 0; animation: fadeUp 1.2s 0.5s forwards; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; border: 1px solid var(--border); padding: 0.4rem 1.2rem; font-weight: 500; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 8vw, 7rem); font-weight: 300; line-height: 1.05; margin-bottom: 0.5rem; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-tagline { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(250,250,247,0.55); margin-bottom: 2.8rem; font-weight: 400; }
+  .hero-divider { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.8rem; }
+  .hero-divider::before, .hero-divider::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--border); }
+  .hero-divider-icon { color: var(--gold); font-size: 0.9rem; }
+  .hero-btn { display: inline-block; background: var(--gold); color: var(--black); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 1rem 2.8rem; font-weight: 600; font-family: 'Montserrat', sans-serif; transition: background 0.3s, transform 0.3s; }
+  .hero-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .hero-btn-outline { display: inline-block; border: 1px solid rgba(201,168,76,0.5); color: var(--white); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 1rem 2.8rem; margin-left: 1rem; font-weight: 500; font-family: 'Montserrat', sans-serif; transition: border-color 0.3s, color 0.3s; }
+  .hero-btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll { position: absolute; bottom: 2.4rem; left: 50%; transform: translateX(-50%); z-index: 2; text-align: center; color: rgba(250,250,247,0.4); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; animation: bounce 2.4s infinite; }
+  .hero-scroll::after { content: '↓'; display: block; font-size: 1rem; margin-top: 0.3rem; color: var(--gold); }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* SECTIONS */
+  section { padding: 7rem 5%; }
+  .section-label { font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; font-weight: 500; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.2rem; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-subtitle { font-size: 0.82rem; color: var(--text-muted); max-width: 500px; line-height: 1.9; font-weight: 300; letter-spacing: 0.02em; }
+  .gold-line { width: 48px; height: 1px; background: var(--gold); margin: 1.8rem 0; }
+
+  /* APARTMENTS */
+  #apartments { background: var(--off-black); }
+  .apartments-header { margin-bottom: 3rem; }
+
+  /* AREA FILTER TABS */
+  .area-filter-wrap { margin-bottom: 3rem; overflow-x: auto; padding-bottom: 0.5rem; }
+  .area-filter-wrap::-webkit-scrollbar { height: 2px; }
+  .area-filter-wrap::-webkit-scrollbar-thumb { background: var(--gold); }
+  .area-filter { display: flex; gap: 0.5rem; list-style: none; white-space: nowrap; }
+  .area-filter li button { background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.55rem 1.2rem; cursor: pointer; transition: all 0.3s; font-weight: 500; white-space: nowrap; }
+  .area-filter li button:hover { border-color: var(--gold); color: var(--gold); }
+  .area-filter li button.active { background: var(--gold); border-color: var(--gold); color: var(--black); }
+  .area-count { display: inline-block; background: rgba(201,168,76,0.15); color: var(--gold); font-size: 0.55rem; letter-spacing: 0.1em; padding: 0.1rem 0.4rem; margin-left: 0.4rem; border-radius: 2px; vertical-align: middle; }
+  .area-filter li button.active .area-count { background: rgba(10,10,10,0.2); color: var(--black); }
+
+  /* APT CARDS */
+  .apartments-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; }
+  .apt-card { position: relative; overflow: hidden; background: #0d0d0d; cursor: pointer; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .apt-card:hover { transform: translateY(-4px); }
+  .apt-img-wrap { position: relative; overflow: hidden; height: 300px; cursor: pointer; }
+  .apt-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .apt-card:hover .apt-img-wrap img { transform: scale(1.07); }
+  .apt-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(201,168,76,0.85); display: flex; align-items: center; justify-content: center; z-index: 3; pointer-events: none; }
+  .apt-video-play svg { width: 20px; height: 20px; fill: var(--black); margin-left: 3px; }
+  .apt-badge { position: absolute; top: 1.2rem; left: 1.2rem; background: var(--gold); color: var(--black); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.3rem 0.8rem; font-weight: 600; z-index: 2; }
+  .apt-area-tag { position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(10,10,10,0.75); color: var(--gold); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.3rem 0.8rem; font-weight: 500; z-index: 2; border: 1px solid var(--border); backdrop-filter: blur(6px); }
+  .apt-photo-count { position: absolute; bottom: 1rem; right: 1rem; z-index: 3; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--gold); background: rgba(10,10,10,0.7); padding: 0.3rem 0.6rem; border: 1px solid var(--border); }
+  .apt-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.85) 100%); }
+  .apt-body { padding: 1.8rem; }
+  .apt-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+  .apt-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; }
+  .apt-price { text-align: right; }
+  .apt-price strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 400; }
+  .apt-price span { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; }
+  .apt-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.4rem; font-weight: 300; }
+  .apt-features { display: flex; gap: 1.4rem; margin-bottom: 1.2rem; border-top: 1px solid var(--border); padding-top: 1.2rem; flex-wrap: wrap; }
+  .apt-feature { font-size: 0.68rem; letter-spacing: 0.1em; color: rgba(250,250,247,0.6); text-transform: uppercase; font-weight: 500; }
+  .apt-feature span { display: block; color: var(--gold); font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .apt-amenities { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+  .apt-amenity-tag { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); padding: 0.2rem 0.6rem; font-weight: 400; }
+  .apt-btn { width: 100%; background: transparent; border: 1px solid var(--border); color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.85rem; cursor: pointer; font-weight: 500; transition: background 0.3s, border-color 0.3s, color 0.3s; }
+  .apt-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .no-results { grid-column: 1/-1; text-align: center; padding: 5rem 2rem; }
+  .no-results p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--text-muted); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,10,0.96); backdrop-filter: blur(10px); align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; display: flex; align-items: center; gap: 1rem; }
+  .lightbox-img { max-width: 80vw; max-height: 85vh; object-fit: contain; border: 1px solid var(--border); }
+  .lightbox-video { max-width: 80vw; max-height: 85vh; border: 1px solid var(--border); }
+  .lightbox-close { position: absolute; top: -2.5rem; right: 0; background: none; border: none; color: var(--gold); font-size: 1.1rem; letter-spacing: 0.1em; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+  .lightbox-nav { background: none; border: 1px solid var(--border); color: var(--gold); font-size: 1.2rem; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: background 0.3s; flex-shrink: 0; }
+  .lightbox-nav:hover { background: var(--gold); color: var(--black); }
+  .lightbox-counter { position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); font-size: 0.62rem; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; }
+
+  /* BOOKING */
+  #booking { background: var(--black); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .booking-visual { position: relative; }
+  .booking-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+  .booking-img-accent { position: absolute; bottom: -1.5rem; right: -1.5rem; width: 55%; aspect-ratio: 1; border: 1px solid var(--border); z-index: -1; }
+  .form-group { margin-bottom: 1.4rem; }
+  .form-group label { display: block; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 0.82rem; padding: 0.85rem 1rem; outline: none; transition: border-color 0.3s; font-weight: 300; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group input::placeholder { color: rgba(250,250,247,0.25); }
+  .form-group select option { background: #111; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit { width: 100%; background: var(--gold); color: var(--black); border: none; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 1.1rem; cursor: pointer; font-weight: 600; transition: background 0.3s, transform 0.3s; margin-top: 0.6rem; display: flex; align-items: center; justify-content: center; gap: 0.7rem; }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* GALLERY */
+  #gallery { background: var(--off-black); }
+  .gallery-header { margin-bottom: 3rem; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: auto; gap: 3px; }
+  .gallery-item { overflow: hidden; position: relative; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s; filter: brightness(0.88); }
+  .gallery-item:hover img { transform: scale(1.06); filter: brightness(1); }
+  .g1 { grid-column: 1/7; grid-row: 1; height: 420px; }
+  .g2 { grid-column: 7/13; grid-row: 1; height: 420px; }
+  .g3 { grid-column: 1/5; height: 280px; }
+  .g4 { grid-column: 5/9; height: 280px; }
+  .g5 { grid-column: 9/13; height: 280px; }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--black); }
+  .testimonials-header { text-align: center; margin-bottom: 4rem; }
+  .testimonials-header .gold-line { margin: 1.8rem auto; }
+  .testimonials-header .section-subtitle { margin: 0 auto; text-align: center; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; }
+  .testi-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 2.5rem; position: relative; transition: border-color 0.3s, transform 0.4s; }
+  .testi-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .testi-quote { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); line-height: 0.6; margin-bottom: 1.2rem; opacity: 0.5; }
+  .testi-text { font-size: 1.05rem; color: rgba(250,250,247,0.8); line-height: 2; font-style: italic; font-family: 'Cormorant Garamond', serif; margin-bottom: 1.6rem; }
+  .testi-author { border-top: 1px solid var(--border); padding-top: 1.2rem; }
+  .testi-name { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.2rem; }
+  .testi-role { font-size: 0.68rem; color: var(--text-muted); font-weight: 300; }
+  .stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+
+  /* CONTACT */
+  #contact { background: var(--off-black); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-info-item { display: flex; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .contact-icon { width: 44px; height: 44px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; font-size: 1rem; }
+  .contact-detail-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; font-weight: 500; }
+  .contact-detail-value { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--white); }
+  .contact-social { margin-top: 2.5rem; }
+  .contact-social-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; font-weight: 500; }
+  .social-links { display: flex; gap: 0.8rem; }
+  .social-link { width: 40px; height: 40px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: border-color 0.3s, color 0.3s; }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-map-placeholder { width: 100%; height: 260px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 2.5rem; }
+
+  /* FOOTER */
+  footer { background: var(--black); border-top: 1px solid var(--border); padding: 3rem 5% 2rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); margin-bottom: 0.3rem; }
+  .footer-brand-sub { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .footer-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.9; font-weight: 300; max-width: 260px; }
+  .footer-col-title { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; font-weight: 600; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.7rem; }
+  .footer-links a { font-size: 0.75rem; color: var(--text-muted); text-decoration: none; font-weight: 300; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.68rem; color: var(--text-muted); font-weight: 300; }
+
+  /* ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* MOBILE NAV */
+  .mobile-menu { display: none; position: fixed; inset: 0; z-index: 998; background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 2.4rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; color: var(--white); text-decoration: none; transition: color 0.3s; }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-close { position: absolute; top: 1.8rem; right: 5%; font-size: 1.5rem; color: var(--gold); cursor: pointer; background: none; border: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #booking, #contact { grid-template-columns: 1fr; }
+    .booking-visual { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .g1 { grid-column: 1/13; } .g2 { grid-column: 1/13; }
+    .g3 { grid-column: 1/7; } .g4 { grid-column: 7/13; } .g5 { grid-column: 1/13; }
+  }
+  @media (max-width: 680px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 5rem 5%; }
+    #booking, #contact { padding: 5rem 5%; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .hero-btn-outline { margin-left: 0; margin-top: 0.8rem; display: block; }
+    .gallery-grid { display: flex; flex-direction: column; }
+    .gallery-item { height: 220px !important; }
+    .g1,.g2,.g3,.g4,.g5 { grid-column: auto; }
+    .apartments-grid { grid-template-columns: 1fr; }
+    .area-filter { gap: 0.4rem; }
+    .lightbox-img, .lightbox-video { max-width: 95vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Casa <span>by Hyelni</span></a>
+  <ul class="nav-links">
+    <li><a href="#apartments">Apartments</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now</button>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">&#x2715;</button>
+  <a href="#apartments" onclick="toggleMenu()">Apartments</a>
+  <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="#testimonials" onclick="toggleMenu()">Reviews</a>
+  <a href="#booking" onclick="toggleMenu()">Book Now</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightboxBtn()">&#x2715; Close</button>
+    <button class="lightbox-nav" id="lbPrev" onclick="lightboxNav(-1)">&#x2039;</button>
+    <img class="lightbox-img" id="lbImg" src="" alt="" style="display:none"/>
+    <video class="lightbox-video" id="lbVideo" controls style="display:none"></video>
+    <button class="lightbox-nav" id="lbNext" onclick="lightboxNav(1)">&#x203a;</button>
+    <div class="lightbox-counter" id="lbCounter"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Abuja's Premier Luxury Shortlets</div>
+    <h1 class="hero-title">Casa by <em>Hyelni</em></h1>
+    <p class="hero-tagline">&#8212; &nbsp; Welcome Home &nbsp; &#8212;</p>
+    <div class="hero-divider"><span class="hero-divider-icon">&#x2726;</span></div>
+    <a href="#booking" class="hero-btn">Reserve Your Stay</a>
+    <a href="#apartments" class="hero-btn-outline">Explore Spaces</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- APARTMENTS -->
+<section id="apartments">
+  <div class="apartments-header reveal">
+    <p class="section-label">Our Residences</p>
+    <h2 class="section-title">Curated <em>Spaces</em><br>for Discerning Guests</h2>
+    <div class="gold-line"></div>
+    <p class="section-subtitle">Each apartment is thoughtfully designed to deliver an unrivalled sense of privacy, comfort, and elegance in the heart of Abuja.</p>
+  </div>
+
+  <!-- AREA FILTER TABS -->
+  <div class="area-filter-wrap reveal">
+    <ul class="area-filter" id="areaFilter">
+      <li><button class="active" data-area="all" onclick="filterArea('all',this)">All Areas <span class="area-count" id="cnt-all">0</span></button></li>
+      <li><button data-area="Jabi" onclick="filterArea('Jabi',this)">Jabi <span class="area-count" id="cnt-Jabi">0</span></button></li>
+      <li><button data-area="Utako" onclick="filterArea('Utako',this)">Utako <span class="area-count" id="cnt-Utako">0</span></button></li>
+      <li><button data-area="Wuye" onclick="filterArea('Wuye',this)">Wuye <span class="area-count" id="cnt-Wuye">0</span></button></li>
+      <li><button data-area="Guzape" onclick="filterArea('Guzape',this)">Guzape <span class="area-count" id="cnt-Guzape">0</span></button></li>
+      <li><button data-area="Maitama" onclick="filterArea('Maitama',this)">Maitama <span class="area-count" id="cnt-Maitama">0</span></button></li>
+      <li><button data-area="Wuse 2" onclick="filterArea('Wuse 2',this)">Wuse 2 <span class="area-count" id="cnt-Wuse2">0</span></button></li>
+      <li><button data-area="Asokoro" onclick="filterArea('Asokoro',this)">Asokoro <span class="area-count" id="cnt-Asokoro">0</span></button></li>
+      <li><button data-area="Garki" onclick="filterArea('Garki',this)">Garki <span class="area-count" id="cnt-Garki">0</span></button></li>
+      <li><button data-area="Lifecamp" onclick="filterArea('Lifecamp',this)">Lifecamp <span class="area-count" id="cnt-Lifecamp">0</span></button></li>
+      <li><button data-area="Durumi" onclick="filterArea('Durumi',this)">Durumi <span class="area-count" id="cnt-Durumi">0</span></button></li>
+    </ul>
+  </div>
+
+  <!-- APARTMENTS GRID -->
+  <div class="apartments-grid" id="apartmentsGrid">
+    <div class="no-results"><p style="color:var(--text-muted);font-size:0.8rem;letter-spacing:0.1em;">Loading residences&#8230;</p></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="booking-visual reveal">
+    <img class="booking-img" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80" alt="Luxury interior"/>
+    <div class="booking-img-accent"></div>
+  </div>
+  <div class="booking-form-wrap reveal reveal-delay-1">
+    <p class="section-label">Reserve Your Stay</p>
+    <h2 class="section-title">Make a <em>Booking</em></h2>
+    <div class="gold-line"></div>
+    <p class="section-subtitle" style="margin-bottom:2.4rem;">Complete the form below and you'll be connected directly via WhatsApp to confirm your reservation.</p>
+    <div class="form-group"><label>Full Name</label><input type="text" id="guestName" placeholder="e.g. Amina Ibrahim"/></div>
+    <div class="form-group"><label>Phone Number</label><input type="tel" id="guestPhone" placeholder="e.g. 0803 000 0000"/></div>
+    <div class="form-group">
+      <label>Select Apartment</label>
+      <select id="aptSelect"><option value="">&#8212; Choose a residence &#8212;</option></select>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Check-In Date</label><input type="date" id="checkIn"/></div>
+      <div class="form-group"><label>Check-Out Date</label><input type="date" id="checkOut"/></div>
+    </div>
+    <div class="form-group">
+      <label>Number of Guests</label>
+      <select id="numGuests">
+        <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5+ Guests</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Special Requests (Optional)</label><textarea id="specialReq" rows="3" placeholder="Airport pickup, late check-in, dietary requirements&#8230;" style="resize:vertical"></textarea></div>
+    <button class="form-submit" onclick="submitBooking()">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.849L.057 23.428a.5.5 0 00.614.614l5.579-1.475A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.992 0-3.859-.584-5.425-1.591l-.388-.242-4.028 1.065 1.065-3.928-.254-.4A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Book via WhatsApp
+    </button>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <p class="section-label">Visual Journey</p>
+    <h2 class="section-title">A Glimpse of <em>Elegance</em></h2>
+    <div class="gold-line"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item g1 reveal"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80" alt="Luxury Living Room"/></div>
+    <div class="gallery-item g2 reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=900&q=80" alt="Luxury Bathroom"/></div>
+    <div class="gallery-item g3 reveal"><img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=600&q=80" alt="Bedroom"/></div>
+    <div class="gallery-item g4 reveal reveal-delay-1"><img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=600&q=80" alt="Kitchen"/></div>
+    <div class="gallery-item g5 reveal reveal-delay-2"><img src="https://images.unsplash.com/photo-1613553507747-5f8d62ad5904?w=600&q=80" alt="Terrace"/></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header reveal">
+    <p class="section-label">Guest Experiences</p>
+    <h2 class="section-title">Words from Our <em>Guests</em></h2>
+    <div class="gold-line"></div>
+    <p class="section-subtitle">We measure success not in bookings, but in moments that linger long after checkout.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-quote">"</div><p class="testi-text">Staying at Casa by Hyelni was unlike anything I've experienced in Abuja. The attention to detail &#8212; from the Egyptian cotton sheets to the perfectly stocked kitchen &#8212; made me feel like royalty.</p><div class="testi-author"><div class="testi-name">Chidinma Okafor</div><div class="testi-role">Corporate Executive, Lagos</div></div></div>
+    <div class="testi-card reveal reveal-delay-1"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-quote">"</div><p class="testi-text">My husband and I celebrated our anniversary here and it was nothing short of magical. The views, the ambience, the impeccable service &#8212; Casa by Hyelni has redefined luxury for us.</p><div class="testi-author"><div class="testi-name">Fatima Al-Hassan</div><div class="testi-role">Entrepreneur, Abuja</div></div></div>
+    <div class="testi-card reveal reveal-delay-2"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-quote">"</div><p class="testi-text">As a frequent traveller to Abuja for business, I've tried many shortlets. None come close to Casa by Hyelni. The professionalism, cleanliness, and sheer elegance make every trip a pleasure.</p><div class="testi-author"><div class="testi-name">Emmanuel Adeyemi</div><div class="testi-role">Investment Banker, London</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">We'd Love to <em>Host You</em></h2>
+    <div class="gold-line"></div>
+    <p class="section-subtitle" style="margin-bottom:3rem;">Our team is available around the clock to ensure your stay is perfectly arranged.</p>
+    <div class="contact-info-item"><div class="contact-icon">&#x1F4CD;</div><div><div class="contact-detail-label">Location</div><div class="contact-detail-value">Maitama &amp; Wuse 2, Abuja, Nigeria</div></div></div>
+    <div class="contact-info-item"><div class="contact-icon">&#x1F4F1;</div><div><div class="contact-detail-label">WhatsApp / Phone</div><div class="contact-detail-value">+234 703 055 3165</div></div></div>
+    <div class="contact-info-item"><div class="contact-icon">&#x1F4E7;</div><div><div class="contact-detail-label">Email</div><div class="contact-detail-value">hello@casabyhyelni.com</div></div></div>
+    <div class="contact-social"><div class="contact-social-label">Follow Us</div><div class="social-links"><a class="social-link" href="#" title="Instagram">ig</a><a class="social-link" href="#" title="Facebook">fb</a><a class="social-link" href="#" title="Twitter/X">&#x1D54F;</a><a class="social-link" href="#" title="TikTok">tt</a></div></div>
+    <div class="contact-map-placeholder">&#x1F4CD; &nbsp; Abuja, Nigeria</div>
+  </div>
+  <div class="reveal reveal-delay-1">
+    <div style="border:1px solid var(--border);padding:2.5rem;">
+      <p class="section-label" style="margin-bottom:1rem;">Send a Message</p>
+      <div class="form-group"><label>Your Name</label><input type="text" id="cName" placeholder="Full name"/></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="cEmail" placeholder="your@email.com"/></div>
+      <div class="form-group"><label>Message</label><textarea id="cMsg" rows="5" placeholder="Tell us how we can help you..."></textarea></div>
+      <button class="form-submit" onclick="sendContactWhatsApp()" style="margin-top:0.4rem;">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.849L.057 23.428a.5.5 0 00.614.614l5.579-1.475A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.992 0-3.859-.584-5.425-1.591l-.388-.242-4.028 1.065 1.065-3.928-.254-.4A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Send via WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Casa by Hyelni</div>
+      <div class="footer-brand-sub">&#8212; Luxury Stays &#8212;</div>
+      <p class="footer-desc">Abuja's most distinguished luxury shortlet brand. We craft unforgettable stays that blend refined elegance with the warmth of home.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links"><li><a href="#apartments">Our Apartments</a></li><li><a href="#booking">Book a Stay</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#testimonials">Guest Reviews</a></li></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Policies</div>
+      <ul class="footer-links"><li><a href="#">Check-in / Check-out</a></li><li><a href="#">Cancellation Policy</a></li><li><a href="#">House Rules</a></li><li><a href="#">Privacy Policy</a></li></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">TikTok</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&#169; 2025 Casa by Hyelni. All rights reserved.</span>
+    <span>Crafted with &#x2726; for Abuja's finest guests</span>
+  </div>
+</footer>
+
+<!-- ===================================================
+  APARTMENT DATA
+  This JSON block is populated by the Netlify build script
+  from /content/apartments/*.md files.
+  During development / before build setup, edit this array
+  directly to preview listings. Once build is configured,
+  DO NOT edit manually — it will be overwritten.
+===================================================== -->
+<script id="apartmentData" type="application/json">
+[
+  {
+    "title": "The Jabi Penthouse",
+    "area": "Jabi",
+    "price": "120,000",
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "guests": 6,
+    "description": "A stunning top-floor penthouse overlooking Jabi Lake. Clean lines, luxury furnishings and sweeping views make this Abuja's most coveted address.",
+    "available": true,
+    "badge": "Popular",
+    "photos": [
+      "/static/uploads/jabi-penthouse-1.jpg",
+      "/static/uploads/jabi-penthouse-2.jpg"
+    ],
+    "video": "",
+    "amenities": [
+      "WiFi",
+      "Smart TV",
+      "Netflix",
+      "Air Conditioning",
+      "Generator (24hr)",
+      "Parking",
+      "Balcony",
+      "Kitchen",
+      "Workspace"
+    ]
+  },
+  {
+    "title": "Utako Executive Suite",
+    "area": "Utako",
+    "price": "85,000",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "guests": 4,
+    "description": "A refined executive suite in the heart of Utako. Perfect for business travellers who demand comfort without compromise.",
+    "available": true,
+    "badge": "New Listing",
+    "photos": [
+      "/static/uploads/utako-suite-1.jpg"
+    ],
+    "video": "",
+    "amenities": [
+      "WiFi",
+      "Smart TV",
+      "Air Conditioning",
+      "Generator (24hr)",
+      "Parking",
+      "Kitchen",
+      "Workspace"
+    ]
+  }
+]
+</script>
+
+<script>
+  // NAV SCROLL
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // MOBILE MENU
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // REVEAL ON SCROLL
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  // BOOKING DATE SETUP
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('checkIn').min = today;
+  document.getElementById('checkOut').min = today;
+  document.getElementById('checkIn').addEventListener('change', function() {
+    document.getElementById('checkOut').min = this.value;
+  });
+
+  // ── APARTMENT ENGINE ──────────────────────────────────────────
+  var allApartments = [];
+  var lbImages = [];
+  var lbIndex = 0;
+
+  function initApartments() {
+    try {
+      allApartments = JSON.parse(document.getElementById('apartmentData').textContent);
+    } catch(e) { allApartments = []; }
+    updateCounts();
+    renderApartments('all');
+    populateBookingSelect();
+  }
+
+  function updateCounts() {
+    var areas = ['all','Jabi','Utako','Wuye','Guzape','Maitama','Wuse 2','Asokoro','Garki','Lifecamp','Durumi'];
+    var idMap = {'all':'cnt-all','Jabi':'cnt-Jabi','Utako':'cnt-Utako','Wuye':'cnt-Wuye','Guzape':'cnt-Guzape','Maitama':'cnt-Maitama','Wuse 2':'cnt-Wuse2','Asokoro':'cnt-Asokoro','Garki':'cnt-Garki','Lifecamp':'cnt-Lifecamp','Durumi':'cnt-Durumi'};
+    areas.forEach(function(area) {
+      var el = document.getElementById(idMap[area]);
+      if (!el) return;
+      var count = area === 'all'
+        ? allApartments.filter(function(a){ return a.available !== false; }).length
+        : allApartments.filter(function(a){ return a.area === area && a.available !== false; }).length;
+      el.textContent = count;
+      if (area !== 'all' && count === 0) {
+        var li = el.closest('li');
+        if (li) li.style.display = 'none';
+      }
+    });
+  }
+
+  function filterArea(area, btn) {
+    document.querySelectorAll('.area-filter button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderApartments(area);
+  }
+
+  function renderApartments(area) {
+    var grid = document.getElementById('apartmentsGrid');
+    var filtered = area === 'all'
+      ? allApartments.filter(function(a){ return a.available !== false; })
+      : allApartments.filter(function(a){ return a.area === area && a.available !== false; });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="no-results"><p>No residences in this area yet.</p><p style="font-size:0.7rem;margin-top:0.8rem;letter-spacing:0.1em;color:var(--text-muted);">More spaces coming soon.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map(function(apt, i) {
+      var delay = i % 3 === 1 ? 'reveal-delay-1' : i % 3 === 2 ? 'reveal-delay-2' : '';
+      var photos = (apt.photos && apt.photos.length) ? apt.photos : ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80'];
+      var firstPhoto = photos[0];
+      var hasVideo = apt.video && apt.video.trim() !== '';
+      var total = photos.length + (hasVideo ? 1 : 0);
+      var photosJSON = JSON.stringify(photos).replace(/"/g, '&quot;');
+      var videoSrc = hasVideo ? apt.video : '';
+
+      var amenityHTML = (apt.amenities || []).slice(0,5).map(function(a){ return '<span class="apt-amenity-tag">' + a + '</span>'; }).join('');
+      var countHTML = total > 1 ? '<div class="apt-photo-count">' + (hasVideo ? '&#x25B6; + ' : '') + '&#x1F4F7; ' + photos.length + '</div>' : '';
+
+      return '<div class="apt-card reveal ' + delay + '">' +
+        '<div class="apt-img-wrap" onclick="openLightbox(' + photosJSON + ',\'' + videoSrc + '\',0)">' +
+          '<img src="' + firstPhoto + '" alt="' + apt.title + '" loading="lazy"/>' +
+          '<div class="apt-overlay"></div>' +
+          (apt.badge ? '<div class="apt-badge">' + apt.badge + '</div>' : '') +
+          '<div class="apt-area-tag">&#x1F4CD; ' + apt.area + '</div>' +
+          (hasVideo ? '<div class="apt-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>' : '') +
+          countHTML +
+        '</div>' +
+        '<div class="apt-body">' +
+          '<div class="apt-meta">' +
+            '<h3 class="apt-name">' + apt.title + '</h3>' +
+            '<div class="apt-price"><strong>&#x20A6;' + apt.price + '</strong><span>per night</span></div>' +
+          '</div>' +
+          '<p class="apt-desc">' + apt.description + '</p>' +
+          '<div class="apt-features">' +
+            '<div class="apt-feature"><span>&#x1F6CF;</span>' + apt.bedrooms + ' Bed' + (apt.bedrooms > 1 ? 's' : '') + '</div>' +
+            '<div class="apt-feature"><span>&#x1F6C1;</span>' + apt.bathrooms + ' Bath' + (apt.bathrooms > 1 ? 's' : '') + '</div>' +
+            '<div class="apt-feature"><span>&#x1F465;</span>' + apt.guests + ' Guests</div>' +
+          '</div>' +
+          (amenityHTML ? '<div class="apt-amenities">' + amenityHTML + '</div>' : '') +
+          '<button class="apt-btn" onclick="bookApartment(\'' + apt.title.replace(/'/g,"\\'") + '\',\'&#x20A6;' + apt.price + '/night\')">Reserve This Space</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    document.querySelectorAll('#apartmentsGrid .apt-card.reveal').forEach(function(el){ revealObserver.observe(el); });
+  }
+
+  function populateBookingSelect() {
+    var sel = document.getElementById('aptSelect');
+    sel.innerHTML = '<option value="">&#8212; Choose a residence &#8212;</option>';
+    allApartments.filter(function(a){ return a.available !== false; }).forEach(function(apt) {
+      var opt = document.createElement('option');
+      opt.value = apt.title + ' \u2013 \u20A6' + apt.price + '/night';
+      opt.textContent = apt.title + ' (' + apt.area + ') \u2013 \u20A6' + apt.price + '/night';
+      sel.appendChild(opt);
+    });
+  }
+
+  // LIGHTBOX
+  function openLightbox(photos, video, startIndex) {
+    lbImages = photos.slice();
+    if (video && video.trim()) lbImages.push({ type: 'video', src: video });
+    lbIndex = startIndex;
+    showLightboxItem();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLightboxItem() {
+    var item = lbImages[lbIndex];
+    var img = document.getElementById('lbImg');
+    var vid = document.getElementById('lbVideo');
+    var isVideo = item && typeof item === 'object' && item.type === 'video';
+    if (isVideo) {
+      img.style.display = 'none';
+      vid.src = item.src;
+      vid.style.display = 'block';
+    } else {
+      vid.pause(); vid.src = '';
+      vid.style.display = 'none';
+      img.src = item || '';
+      img.style.display = 'block';
+    }
+    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+    document.getElementById('lbPrev').style.display = lbImages.length > 1 ? 'flex' : 'none';
+    document.getElementById('lbNext').style.display = lbImages.length > 1 ? 'flex' : 'none';
+  }
+
+  function lightboxNav(dir) {
+    lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+    showLightboxItem();
+  }
+
+  function closeLightboxOutside(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightboxBtn();
+  }
+  function closeLightboxBtn() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+    var vid = document.getElementById('lbVideo');
+    vid.pause(); vid.src = '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightboxBtn();
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+  });
+
+  // BOOKING WHATSAPP
+  function bookApartment(name, price) {
+    document.getElementById('aptSelect').value = name + ' \u2013 ' + price;
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function submitBooking() {
+    var name    = document.getElementById('guestName').value.trim();
+    var phone   = document.getElementById('guestPhone').value.trim();
+    var apt     = document.getElementById('aptSelect').value;
+    var checkIn = document.getElementById('checkIn').value;
+    var checkOut= document.getElementById('checkOut').value;
+    var guests  = document.getElementById('numGuests').value;
+    var special = document.getElementById('specialReq').value.trim();
+    if (!name || !phone || !apt || !checkIn || !checkOut) { alert('Please fill in all required fields before booking.'); return; }
+    var nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000*60*60*24));
+    var msg = '\uD83C\uDFE0 *BOOKING REQUEST \u2013 Casa by Hyelni*\n\n\uD83D\uDC64 *Guest Name:* ' + name + '\n\uD83D\uDCF1 *Phone:* ' + phone + '\n\uD83D\uDECF *Apartment:* ' + apt + '\n\uD83D\uDCC5 *Check-In:* ' + checkIn + '\n\uD83D\uDCC5 *Check-Out:* ' + checkOut + '\n\uD83C\uDF19 *Duration:* ' + nights + ' night(s)\n\uD83D\uDC65 *Guests:* ' + guests + '\n' + (special ? '\uD83D\uDCDD *Special Requests:* ' + special + '\n' : '') + '\n\u2728 _Sent from casabyhyelni.com_';
+    window.open('https://wa.me/2347030553165?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  function sendContactWhatsApp() {
+    var name  = document.getElementById('cName').value.trim();
+    var email = document.getElementById('cEmail').value.trim();
+    var msg   = document.getElementById('cMsg').value.trim();
+    if (!name || !msg) { alert('Please enter your name and message.'); return; }
+    var text = '\uD83D\uDCE9 *MESSAGE \u2013 Casa by Hyelni*\n\n\uD83D\uDC64 *Name:* ' + name + '\n\uD83D\uDCE7 *Email:* ' + email + '\n\n\uD83D\uDCAC *Message:*\n' + msg + '\n\n\u2728 _Sent from casabyhyelni.com_';
+    window.open('https://wa.me/2347030553165?text=' + encodeURIComponent(text), '_blank');
+  }
+
+  // INIT
+  document.addEventListener('DOMContentLoaded', function() {
+    initApartments();
+    document.querySelectorAll('.reveal').forEach(function(el){ revealObserver.observe(el); });
+  });
+</script>
+</body>
+</html>

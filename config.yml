@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/uploads"
+public_folder: "/static/uploads"
+
+collections:
+  - name: "apartments"
+    label: "Apartments"
+    folder: "content/apartments"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Apartment Name", name: "title", widget: "string", hint: "e.g. The Jabi Penthouse" }
+      - { label: "Area", name: "area", widget: "select", options: ["Jabi", "Utako", "Wuye", "Guzape", "Maitama", "Wuse 2", "Asokoro", "Garki", "Lifecamp", "Durumi"], hint: "Select the area of Abuja" }
+      - { label: "Price Per Night (₦)", name: "price", widget: "string", hint: "e.g. 85,000" }
+      - { label: "Bedrooms", name: "bedrooms", widget: "number", value_type: "int", min: 1, max: 10 }
+      - { label: "Bathrooms", name: "bathrooms", widget: "number", value_type: "int", min: 1, max: 10 }
+      - { label: "Max Guests", name: "guests", widget: "number", value_type: "int", min: 1, max: 20 }
+      - { label: "Short Description", name: "description", widget: "text", hint: "1-2 sentences shown on the card" }
+      - { label: "Available", name: "available", widget: "boolean", default: true }
+      - { label: "Badge (optional)", name: "badge", widget: "string", required: false, hint: "e.g. New Listing, Popular, Just Added" }
+      - label: "Photos"
+        name: "photos"
+        widget: "list"
+        min: 1
+        max: 10
+        field: { label: "Photo", name: "photo", widget: "image" }
+      - label: "Video (optional)"
+        name: "video"
+        widget: "file"
+        required: false
+        hint: "Upload an MP4 video tour (max 50MB recommended)"
+      - label: "Amenities"
+        name: "amenities"
+        widget: "select"
+        multiple: true
+        options:
+          - "WiFi"
+          - "Smart TV"
+          - "Netflix"
+          - "Air Conditioning"
+          - "Generator (24hr)"
+          - "Swimming Pool"
+          - "Gym"
+          - "Parking"
+          - "Security"
+          - "Balcony"
+          - "Kitchen"
+          - "Washing Machine"
+          - "Bathtub"
+          - "Workspace"

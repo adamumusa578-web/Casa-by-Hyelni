@@ -1,0 +1,8 @@
+{
+  "name": "casa-by-hyelni",
+  "version": "1.0.0",
+  "description": "Casa by Hyelni — Luxury Shortlets, Abuja",
+  "scripts": {
+    "build": "node build.js"
+  }
+}
